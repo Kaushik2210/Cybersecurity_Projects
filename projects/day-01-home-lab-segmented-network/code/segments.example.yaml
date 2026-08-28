@@ -1,0 +1,29 @@
+# Example lab topology for segmentation_check.py.
+#
+# Copy this file to segments.local.yaml (gitignored — it may contain your real
+# lab IPs) and fill in your own hosts before running the checker.
+#
+# "segments" describes which hosts live on which network segment.
+# "allowed_paths" is the ONLY traffic that should be able to cross segments.
+# Everything else between two different segments is expected to be BLOCKED —
+# that's the whole point of segmentation, and what the script proves.
+
+segments:
+  users:
+    hosts:
+      - 192.168.10.10   # e.g. a Linux/Windows client VM
+  servers:
+    hosts:
+      - 192.168.20.10   # e.g. an internal app or file server VM
+  dmz:
+    hosts:
+      - 192.168.30.10   # e.g. a public-facing web server VM
+
+# Deliberate exceptions to "segments can't talk to each other".
+# Example: users are allowed to reach the DMZ web server on HTTPS, but nothing
+# else should be allowed to cross a segment boundary.
+allowed_paths:
+  - from: users
+    to: dmz
+    port: 443
+    protocol: tcp

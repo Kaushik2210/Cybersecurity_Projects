@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Node (for any JS-based tooling/dashboards)
+node_modules/
+dist/
+build/
+
+# Secrets & environment
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+
+# Local lab configs with real IPs/hostnames — keep only the *.example.* templates
+*.local.yaml
+*.local.yml
+
+# VM / virtualization artifacts
+*.vmdk
+*.vdi
+*.ova
+*.ovf
+*.qcow2
+*.iso
+
+# Large samples & captures (keep sanitized samples only, tracked deliberately)
+*.pcap
+*.pcapng
+!evidence/**/*.sanitized.pcap
+samples/
+*.exe
+*.dll
+*.bin
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
