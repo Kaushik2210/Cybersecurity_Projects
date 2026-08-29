@@ -40,7 +40,7 @@ MITRE ATLAS · NIST CSF · NIST AI RMF · NICE Workforce Framework
 | Day | Project | Level | Phase | Status |
 |-----|---------|-------|-------|--------|
 | 01 | [Home lab with segmented network](./projects/day-01-home-lab-segmented-network/README.md) | 🟢 | 0 — Foundations | 🟨 |
-| 02 | Linux fundamentals & CLI security toolkit | 🟢 | 0 — Foundations | ⬜ |
+| 02 | [Linux fundamentals & CLI security toolkit](./projects/day-02-linux-fundamentals-cli-toolkit/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 03 | Networking & protocols crash-project | 🟢 | 0 — Foundations | ⬜ |
 | 04 | Packet capture analysis writeup | 🟢 | 0 — Foundations | ⬜ |
 | 05 | Git, GitHub & documentation discipline | 🟢 | 0 — Foundations | ⬜ |

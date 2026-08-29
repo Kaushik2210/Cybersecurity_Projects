@@ -7,7 +7,7 @@ detail lives in each project's `notes.md`.
 
 ## Phase 0 — Foundations & Setup (Days 1–8)
 - [🟨] Day 01 — Home lab with segmented network (code + docs done; VM build + evidence pending)
-- [ ] Day 02 — Linux fundamentals & CLI security toolkit
+- [🟨] Day 02 — Linux fundamentals & CLI security toolkit (code + docs done; run-on-real-VM + evidence pending)
 - [ ] Day 03 — Networking & protocols crash-project
 - [ ] Day 04 — Packet capture analysis writeup
 - [ ] Day 05 — Git, GitHub & documentation discipline
