@@ -112,24 +112,38 @@ malformed hostname in the config can't be interpreted as a shell command.
 
 ## 7. Results & Evidence
 
-Run from the `users` segment VM:
+The VirtualBox/pfSense lab isn't built yet, so I ran the same script against
+a Docker-based stand-in first, three containers on three networks, to prove
+the tool itself works before spending an evening on VM setup:
 
 ```
-$ python segmentation_check.py segments.local.yaml --from-segment users
 Running from segment: users
 TO         HOST             EXPECTED       ACTUAL         RESULT
 ------------------------------------------------------------------
-dmz        192.168.30.10    reachable:443  reachable:443  PASS
-servers    192.168.20.10    blocked        blocked        PASS
+dmz        172.20.0.2       reachable:80   reachable:80   PASS
+servers    172.22.0.2       blocked        blocked        PASS
 ------------------------------------------------------------------
 2 checks run, 0 violation(s).
 
 All cross-segment traffic from this segment matches the declared policy.
 ```
 
-See [`evidence/`](./evidence/) for the real run output and packet captures
-from my lab, added once the VMs are built. Screenshots and pcaps aren't
-faked ahead of time.
+I also ran a negative control, pointing every segment at a host that's
+actually reachable with no `allowed_paths` entry, to make sure the script
+fails loudly instead of always printing PASS:
+
+```
+TO         HOST             EXPECTED       ACTUAL         RESULT
+------------------------------------------------------------------
+dmz        172.20.0.2       blocked        reachable      FAIL
+servers    172.20.0.2       blocked        reachable      FAIL
+------------------------------------------------------------------
+2 checks run, 2 violation(s).
+```
+
+Full output and exactly what this demo does and doesn't prove are in
+[`evidence/`](./evidence/). Once the real VM lab is up, this section gets
+updated with the pfSense-based run and a Wireshark capture.
 
 ## 8. Detection / Defense Angle
 

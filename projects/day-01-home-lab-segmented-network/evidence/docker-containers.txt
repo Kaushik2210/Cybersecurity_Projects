@@ -1,0 +1,4 @@
+CONTAINER ID   IMAGE              COMMAND                  CREATED              STATUS              PORTS     NAMES
+76ce43c5ea46   python:3.13-slim   "sleep 3600"             About a minute ago   Up About a minute             users-host
+98f9e20e912a   python:3.13-slim   "python3 -m http.ser…"   About a minute ago   Up About a minute             dmz-host
+0870b9d47c00   alpine:3.20        "sleep 3600"             About a minute ago   Up About a minute             servers-host

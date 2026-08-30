@@ -1,0 +1,9 @@
+Running from segment: users
+TO         HOST             EXPECTED       ACTUAL         RESULT
+------------------------------------------------------------------
+dmz        172.20.0.2       reachable:80   reachable:80   PASS
+servers    172.22.0.2       blocked        blocked        PASS
+------------------------------------------------------------------
+2 checks run, 0 violation(s).
+
+All cross-segment traffic from this segment matches the declared policy.

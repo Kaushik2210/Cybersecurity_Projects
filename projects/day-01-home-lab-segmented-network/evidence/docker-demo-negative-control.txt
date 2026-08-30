@@ -1,0 +1,11 @@
+Running from segment: users
+TO         HOST             EXPECTED       ACTUAL         RESULT
+------------------------------------------------------------------
+dmz        172.20.0.2       blocked        reachable      FAIL
+servers    172.20.0.2       blocked        reachable      FAIL
+------------------------------------------------------------------
+2 checks run, 2 violation(s).
+
+Segmentation policy violations:
+  - users -> dmz (172.20.0.2): expected blocked, got reachable
+  - users -> servers (172.20.0.2): expected blocked, got reachable

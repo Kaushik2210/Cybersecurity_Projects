@@ -1,0 +1,3 @@
+users-net: users-host 172.20.0.3/16 dmz-host 172.20.0.2/16 
+dmz-net: dmz-host 172.21.0.2/16 
+servers-net: servers-host 172.22.0.2/16 

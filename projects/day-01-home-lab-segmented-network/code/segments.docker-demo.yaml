@@ -1,0 +1,25 @@
+# Real config used for the Docker-based functional demo recorded in
+# evidence/docker-demo-segmentation-check.txt.
+#
+# This is NOT the VirtualBox/pfSense lab described in the main README and
+# walkthrough.md — it's a lighter-weight, fully real substitute built with
+# Docker bridge networks to produce genuine reachable/blocked results without
+# needing the full VM lab built first. See evidence/README.md for exactly
+# what was built and its limits compared to real VLAN segmentation.
+
+segments:
+  users:
+    hosts:
+      - 172.20.0.3   # users-host container, on users-net only
+  dmz:
+    hosts:
+      - 172.20.0.2   # dmz-host container, attached to users-net AND dmz-net
+  servers:
+    hosts:
+      - 172.22.0.2   # servers-host container, on servers-net only (no shared network with users)
+
+allowed_paths:
+  - from: users
+    to: dmz
+    port: 80
+    protocol: tcp
