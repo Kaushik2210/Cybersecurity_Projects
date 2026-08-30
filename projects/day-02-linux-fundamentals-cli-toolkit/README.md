@@ -8,12 +8,12 @@
 
 ## 1. The Problem
 
-You can't recognize something abnormal on a Linux host — a rogue listening
-port, an unexpected sudoer, a SUID binary that shouldn't be there — if you've
-never systematically looked at what's normal for that specific box. Almost
-every security role (SOC, incident response, sysadmin, pentesting) starts
-with this same "know your terrain" step, and it's usually done ad hoc,
-inconsistently, by hand. This project turns it into one repeatable command.
+Spotting something abnormal on a Linux host, a rogue listening port, an
+unexpected sudoer, a SUID binary that shouldn't be there, requires knowing
+what's normal for that specific box first. Almost every security role (SOC,
+incident response, sysadmin, pentesting) starts with this same terrain check,
+and it's usually done ad hoc and inconsistently, by hand. This project turns
+it into one repeatable command.
 
 ## 2. What You'll Learn
 
@@ -44,11 +44,11 @@ can touch is governed by file permissions plus group membership. Being in the
 `sudo` (Debian/Kali) or `wheel` (RHEL-family) group is what actually grants
 "can become root," not just having an account.
 
-**SUID bit:** normally a program runs with *your* permissions. A SUID
-("set user ID") binary runs with the *file owner's* permissions instead —
-almost always root. `/usr/bin/passwd` needs this legitimately (to edit
-`/etc/shadow`, which regular users can't touch). The risk isn't that SUID
-exists — it's a SUID binary with a bug, or one nobody expected to be there.
+**SUID bit:** normally a program runs with your permissions. A SUID ("set
+user ID") binary runs with the file owner's permissions instead, almost
+always root. `/usr/bin/passwd` needs this legitimately, to edit
+`/etc/shadow`, which regular users can't touch. The risk isn't that SUID
+exists; it's a SUID binary with a bug, or one nobody expected to be there.
 
 ```mermaid
 flowchart LR
@@ -72,21 +72,21 @@ See [walkthrough.md](./walkthrough.md) for exact commands. In short:
 
 ## 6. The Code, Explained
 
-[`code/host_recon.sh`](./code/host_recon.sh) walks eight fixed sections —
+[`code/host_recon.sh`](./code/host_recon.sh) walks eight fixed sections:
 system identity, users/groups, listening ports, enabled services, SUID/SGID
-binaries, world-writable files, scheduled tasks, and login history — and
+binaries, world-writable files, scheduled tasks, and login history. It
 prints a single readable report.
 
-Two defensive-coding choices worth calling out:
-- **`set -uo pipefail` without `-e`.** Several commands here are *expected*
-  to fail on some systems (no crontab set, no `wheel` group on Debian). `-e`
-  would abort the whole script on the first one; instead `run_or_note()`
-  catches the failure and explains it, so the report is always complete.
+Two design choices in the script:
+- **`set -uo pipefail` without `-e`.** Several commands here are expected to
+  fail on some systems (no crontab set, no `wheel` group on Debian). `-e`
+  would abort the whole script on the first one; `run_or_note()` catches the
+  failure and explains it instead, so the report always finishes.
 - **Root-awareness, not root-requirement.** The script checks `id -u` once
-  and adjusts what it asks for (e.g. `ss -tulnp` needs root to show process
-  names) rather than silently failing or auto-elevating itself with `sudo`
-  from inside the script, which would be a surprising thing for a script to
-  do on its own.
+  and adjusts what it asks for (`ss -tulnp` needs root to show process
+  names), rather than failing silently or auto-elevating itself with `sudo`
+  from inside the script, which would be a surprising thing for it to do on
+  its own.
 
 ## 7. Results & Evidence
 
@@ -112,17 +112,18 @@ VM, added after running this on the real box.
 
 ## 8. Detection / Defense Angle
 
-This *is* a defensive tool, but it also has a defense angle for itself: a
-report like this reveals a lot about a box (users, open ports, cron jobs). In
-a real environment, running or storing it should follow the same access
-control as any other sensitive asset inventory — don't leave `evidence/`
-reports somewhere world-readable if the box is anything but a personal lab.
+This is a defensive tool, but it also needs defending itself: a report like
+this reveals a lot about a box (users, open ports, cron jobs). In a real
+environment, running or storing it should follow the same access control as
+any other sensitive asset inventory. Don't leave `evidence/` reports
+world-readable if the box is anything but a personal lab.
 
 ## 9. Upgrade to Stand Out
 
-The roadmap's stretch goal: make it a real recon *tool*, not a one-shot
-script — add a `--diff <old-report> <new-report>` mode that highlights new
-listening ports, new sudoers, and new SUID binaries between two runs.
+The roadmap's stretch goal: turn this into a real recon tool instead of a
+one-shot script by adding a `--diff <old-report> <new-report>` mode that
+highlights new listening ports, new sudoers, and new SUID binaries between
+two runs.
 
 ## 10. Scope & Legal
 
@@ -141,28 +142,28 @@ these techniques against systems you do not own or have permission to test.
 
 1. **Q: Why avoid `set -e` here when it's usually recommended for bash?**
    A: `-e` aborts on the first non-zero exit, but several commands in this
-   script (e.g. `crontab -l` with no crontab set) fail *legitimately* and
-   shouldn't stop the whole report. `run_or_note()` gets the same safety —
-   fail loud, don't fail silent — without killing the script.
+   script, like `crontab -l` with no crontab set, fail legitimately and
+   shouldn't stop the whole report. `run_or_note()` gets the same safety,
+   fail loud rather than fail silent, without killing the script.
 
 2. **Q: Why does a SUID binary matter for security?**
-   A: It runs with the file owner's privilege (often root) regardless of who
-   invoked it. A bug in a SUID binary — or one that shouldn't be SUID at all
-   — is a direct path from a low-privilege shell to root.
+   A: It runs with the file owner's privilege, often root, regardless of who
+   invoked it. A bug in a SUID binary, or one that shouldn't be SUID at all,
+   is a direct path from a low-privilege shell to root.
 
 3. **Q: The script shows less detail without root. Why not just tell people to always run it as root?**
    A: Running everything as root by default is bad practice and hides useful
-   signal — knowing exactly what requires elevation (and documenting that) is
+   signal. Knowing exactly what requires elevation, and documenting that, is
    itself part of understanding the box's privilege boundaries.
 
 4. **Q: How would you turn this one-off report into an ongoing detection?**
-   A: Run it on a schedule (cron/systemd timer), store each report, and diff
-   consecutive runs — new listening ports, new sudoers, or new SUID binaries
-   between two runs are the actual signal, not the raw report itself.
+   A: Run it on a schedule, store each report, and diff consecutive runs.
+   New listening ports, new sudoers, or new SUID binaries between two runs
+   are the actual signal, not the raw report itself.
 
 5. **Q: What's a real limitation of this script?**
-   A: `find / -xdev ...` only searches the root filesystem's own mount — by
-   design, so it doesn't wander into every mounted network share — but that
-   means SUID binaries or world-writable files on *other* mounted filesystems
-   are invisible to a single run. You'd need to run it once per mount, or
-   drop `-xdev` deliberately and accept the longer scan.
+   A: `find / -xdev ...` only searches the root filesystem's own mount, by
+   design, so it doesn't wander into every mounted network share. That means
+   SUID binaries or world-writable files on other mounted filesystems are
+   invisible to a single run. You'd need to run it once per mount, or drop
+   `-xdev` deliberately and accept the longer scan.
