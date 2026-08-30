@@ -1,0 +1,10 @@
+Non-authoritative answer:
+Server:  UnKnown
+Address:  fe80::9aba:5fff:fef1:8be6
+
+Name:    example.com
+Addresses:  2606:4700:10::6814:179a
+	  2606:4700:10::ac42:93f3
+	  172.66.147.243
+	  104.20.23.154
+

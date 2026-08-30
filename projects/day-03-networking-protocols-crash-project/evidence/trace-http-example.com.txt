@@ -1,0 +1,8 @@
+Tracing http://example.com:80/
+
+[1] DNS resolution:        35.1 ms -> 104.20.23.154, 172.66.147.243, 2606:4700:10::6814:179a, 2606:4700:10::ac42:93f3
+[2] TCP connect:           19.7 ms -> 104.20.23.154:80
+[3] TLS handshake:      skipped (--no-tls)
+[4] Time to first byte:    18.7 ms -> HTTP/1.1 200 OK
+
+Total (DNS + TCP + TLS + TTFB): 73.4 ms

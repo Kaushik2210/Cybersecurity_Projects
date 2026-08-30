@@ -1,0 +1,3 @@
+Tracing https://this-domain-should-not-exist-xyz123.invalid:443/
+
+DNS resolution failed: [Errno 11001] getaddrinfo failed

@@ -1,0 +1,1 @@
+dns: 0.021716s connect: 0.045366s tls: 0.561858s ttfb: 0.576453s total: 0.576574s

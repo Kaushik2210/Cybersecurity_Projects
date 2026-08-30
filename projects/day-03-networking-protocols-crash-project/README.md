@@ -1,6 +1,6 @@
 # Day 03 — Networking & Protocols Crash-Project
 
-> **One-line hook:** I built an HTTPS client from raw sockets, with no `requests` library, so DNS, TCP, TLS, and HTTP are each something I can time and inspect individually instead of a black box behind `curl`.
+> **One-line hook:** I built an HTTPS client from raw sockets, no `requests` library, so DNS, TCP, TLS, and HTTP each become something I can time and inspect on their own instead of a black box behind `curl`.
 
 `Level: 🟢 Beginner` · `Stack: Python (stdlib sockets/ssl), Wireshark, dig, curl` · `Maps to: foundational networking (no single ATT&CK/OWASP ID — this underlies all of them)`
 
@@ -8,12 +8,12 @@
 
 ## 1. The Problem
 
-Every later project in this series (packet analysis, web exploitation, C2
-detection, cloud networking) assumes fluency with what's actually happening
-on the wire during something as ordinary as loading a webpage. Most people
-can run `curl` without being able to explain what DNS, a TCP handshake, or a
-TLS handshake individually contribute to that request. This project forces
-that separation by rebuilding the request one layer at a time.
+Every later project in this series, packet analysis, web exploitation, C2
+detection, cloud networking, assumes fluency with what's actually happening
+on the wire during something as ordinary as loading a webpage. Plenty of
+people can run `curl` without being able to say what DNS, the TCP handshake,
+or the TLS handshake each contribute to that one request. This project forces
+that separation by rebuilding it one layer at a time.
 
 ## 2. What You'll Learn
 
@@ -45,20 +45,20 @@ everything in one place.
 
 **DNS resolution** turns a name (`example.com`) into an address a computer
 can actually route to. It's the first thing that happens and the first place
-things can go wrong — the script's DNS failure test shows this directly:
+things can go wrong. The script's DNS-failure test shows this directly:
 resolution fails before a single packet aimed at the destination is even
 sent.
 
 **TCP three-way handshake** is how two computers agree to open a reliable
 connection: SYN, SYN-ACK, ACK. `socket.create_connection()` does this for
-you, but the "TCP connect" timing in the report *is* that handshake — it's
-not overhead you can skip.
+you, but the "TCP connect" timing in the report is that handshake. It's not
+overhead you can skip.
 
 **TLS handshake** happens on top of the now-open TCP connection and
-negotiates: which TLS version to use, which cipher suite, and proves the
-server's identity via its certificate. **SNI** (Server Name Indication) is
-the part of that handshake where the client says which hostname it wants,
-before anything is encrypted — it's how one IP address can serve HTTPS for
+negotiates which TLS version and cipher suite to use, and proves the
+server's identity via its certificate. SNI (Server Name Indication) is the
+part of that handshake where the client says which hostname it wants before
+anything is encrypted. That's how one IP address ends up hosting HTTPS for
 many different domains, each with its own certificate.
 
 ```mermaid
@@ -95,17 +95,17 @@ phases in order: DNS resolution (`socket.getaddrinfo`), TCP connect
 wrap_socket`), and time-to-first-byte after sending a hand-built HTTP/1.1 GET
 request over the raw socket.
 
-A few choices worth noting:
+A few choices worth explaining:
 - **`ssl.create_default_context()`, not a disabled-verification context.**
   The script uses the system trust store and validates the certificate
-  properly. A tool that teaches turning off TLS verification as the normal
-  path would be teaching the wrong lesson.
+  properly. Teaching people to turn off TLS verification as the "normal"
+  path would be the wrong lesson.
 - **One request per run, `Connection: close`.** This isn't a load-testing or
-  scanning tool; each run makes exactly one HTTP request, matching what a
+  scanning tool. Each run makes exactly one HTTP request, matching what a
   single browser page load would do at the network level.
 - **Errors are caught per phase** (`socket.gaierror` for DNS, `OSError` for
-  TCP, `ssl.SSLError` for TLS) so a failure at any layer reports clearly
-  which layer failed, instead of a generic traceback.
+  TCP, `ssl.SSLError` for TLS), so a failure reports clearly which layer it
+  happened at instead of dumping a generic traceback.
 
 ## 7. Results & Evidence
 
@@ -125,18 +125,21 @@ Total (DNS + TCP + TLS + TTFB): 235.5 ms
 ```
 
 `--no-tls --port 80` skips phase 3 cleanly, and a nonexistent hostname fails
-at phase 1 with a clear message instead of a stack trace. See
-[`evidence/`](./evidence/) for the matching Wireshark capture and full
-`dig`/`curl` comparison output from my lab run.
+at phase 1 with a clear message instead of a stack trace. curl's own
+built-in timing for the same request landed in the same ballpark (`dns:
+0.02s connect: 0.05s tls: 0.56s total: 0.58s` on that run), which is a
+reasonable sanity check even though curl and this script don't slice the
+phases identically. Full output, including what still needs to be redone on
+the actual Kali VM with `dig` and Wireshark, is in [`evidence/`](./evidence/).
 
 ## 8. Detection / Defense Angle
 
-A defender watching this same traffic would look at: DNS queries for
+A defender watching this same traffic would look at DNS queries for
 suspicious or newly-registered domains, TLS handshakes where the SNI
 hostname doesn't match the certificate's subject (a sign of interception or
-misconfiguration), and unusually long TCP-connect times that might indicate
-network congestion or an unreachable/rate-limited host. Tools like Zeek build
-entire detection pipelines around exactly these four phases.
+misconfiguration), and unusually long TCP-connect times that might point to
+network congestion or a rate-limited host. Tools like Zeek build entire
+detection pipelines around these same four phases.
 
 ## 9. Upgrade to Stand Out
 
@@ -164,31 +167,31 @@ don't own or have permission to test.
 ## 12. Interview Prep
 
 1. **Q: Why measure DNS, TCP, and TLS separately instead of just total request time?**
-   A: Each phase fails or slows down for different reasons: DNS issues point
-   to resolver or domain problems, TCP delays point to network path issues,
-   TLS delays point to certificate chain or cipher negotiation problems. A
-   single total time can't tell you which layer to investigate.
+   A: Each phase fails or slows for a different reason. DNS issues point to
+   resolver or domain problems, TCP delays point to network path issues, TLS
+   delays point to certificate or negotiation problems. A single total time
+   can't tell you which layer to look at.
 
 2. **Q: What is SNI and why does it matter for security?**
-   A: SNI is the hostname the client sends, unencrypted, at the start of the
+   A: It's the hostname the client sends, unencrypted, at the start of the
    TLS handshake so the server knows which certificate to present. Because
    it's unencrypted, a network observer can see which hostname you're
    connecting to even over HTTPS, which is why encrypted SNI (ECH) exists as
    a follow-on standard.
 
 3. **Q: Why use `create_default_context()` instead of disabling certificate verification?**
-   A: Disabling verification defeats the entire purpose of TLS: it would
-   accept any certificate, including one presented by an attacker performing
-   a machine-in-the-middle attack. Using the default, verifying context is
-   what any production HTTP client should do.
+   A: Disabling verification defeats the point of TLS. It would accept any
+   certificate, including one presented by an attacker running a
+   machine-in-the-middle attack. The default, verifying context is what any
+   production HTTP client should use.
 
 4. **Q: What would you look for in a packet capture to spot a misconfigured or malicious TLS endpoint?**
    A: A certificate subject that doesn't match the SNI hostname requested, an
-   unexpectedly old TLS version being negotiated (e.g. TLS 1.0 in 2026), or a
+   unexpectedly old TLS version being negotiated (TLS 1.0 in 2026, say), or a
    self-signed certificate where a public CA-issued one is expected.
 
-5. **Q: This script makes one request per run. How would you adapt it to be safe for testing your own web server's performance under load, without becoming an unauthorized scanning tool?**
+5. **Q: This script makes one request per run. How would you adapt it to safely test your own web server's performance under load, without turning it into an unauthorized scanning tool?**
    A: Add an explicit, low, user-set request count and rate limit, run it
    only against hosts you own or have written permission to test, and log
-   what was tested — the same authorization boundary that applies to every
-   other project in this series.
+   what was tested. Same authorization boundary as every other project in
+   this series.

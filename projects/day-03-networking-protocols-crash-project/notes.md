@@ -1,18 +1,25 @@
 # Day 03 — Notes
 
 ## What I learned
-<!-- Fill in after doing the Wireshark side: what the TLS ClientHello/SNI
-     actually looked like in the packet details, anything that surprised you
-     comparing curl's numbers to the script's. -->
+
+Comparing the script's numbers against curl's built-in timing was a good
+gut check, but they don't slice time the same way. curl's `time_appconnect`
+includes more of the handshake path than my script's isolated TLS-phase
+timer, so the two totals lined up but individual phases didn't match
+exactly. That's a useful thing to know before treating either tool's phase
+breakdown as ground truth.
 
 ## What broke and how I fixed it
-<!-- Fill in as you hit real issues — e.g. a captive portal or corporate
-     proxy intercepting TLS and changing what the certificate shows. -->
+
+- `dig` isn't installed on this Windows dev machine, so I used `nslookup`
+  for the quick comparison instead. It's noted honestly in the evidence
+  README rather than pretending `dig` was used — the real `dig`-based run
+  happens once this is run on the Kali VM.
 
 ## Interview questions someone could ask me about this
 1. Q: Why measure DNS, TCP, and TLS as separate phases instead of one total time?
-   A: Each layer fails or slows for different reasons — DNS problems point to
-   resolver/domain issues, TCP delays point to network path issues, TLS
+   A: Each layer fails or slows for different reasons — DNS problems point
+   to resolver/domain issues, TCP delays point to network path issues, TLS
    delays point to certificate or negotiation problems. A single total time
    can't tell you which layer to investigate.
 
