@@ -1,0 +1,2 @@
+CONTAINER ID   IMAGE            COMMAND        CREATED          STATUS          PORTS     NAMES
+5111b5b690fb   debian:12-slim   "sleep 3600"   54 seconds ago   Up 53 seconds             day02-recon-demo

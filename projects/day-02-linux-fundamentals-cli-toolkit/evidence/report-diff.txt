@@ -1,0 +1,11 @@
+2c2
+< Run as: kaushik (root: false)
+---
+> Run as: root (root: true)
+19d18
+< (process names require root — showing ports/addresses only)
+60c59,60
+< (requires root — /var/log/btmp is not world-readable by design)
+---
+> 
+> btmp begins Sun Aug 30 04:18:00 2026

@@ -1,0 +1,70 @@
+Host recon report — 5111b5b690fb — 2026-08-30T04:18:43Z
+Run as: kaushik (root: false)
+
+==== System identity ====
+Kernel:       Linux 6.18.33.2-microsoft-standard-WSL2 x86_64 GNU/Linux
+NAME="Debian GNU/Linux"
+VERSION="12 (bookworm)"
+Uptime:       up 4 minutes
+
+==== Users with an interactive shell ====
+  root                 uid=0 shell=/bin/bash
+  sync                 uid=4 shell=/bin/sync
+  kaushik              uid=1000 shell=/bin/bash
+
+==== Members of sudo/wheel (can escalate to root) ====
+sudo:x:27:kaushik
+
+==== Listening TCP/UDP ports ====
+(process names require root — showing ports/addresses only)
+Netid State Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+
+==== Enabled systemd services (start automatically at boot) ====
+(systemctl not found — this system may not use systemd)
+
+==== SUID/SGID binaries (run with the file owner's privilege, not the caller's) ====
+/usr/bin/chage
+/usr/bin/chfn
+/usr/bin/chsh
+/usr/bin/crontab
+/usr/bin/dotlockfile
+/usr/bin/expiry
+/usr/bin/gpasswd
+/usr/bin/mount
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/su
+/usr/bin/sudo
+/usr/bin/umount
+/usr/sbin/exim4
+/usr/sbin/unix_chkpwd
+
+==== World-writable files outside /tmp, /var/tmp, /dev/shm ====
+
+==== Current user's crontab ====
+(could not read current user's crontab — see 'Section notes' below)
+
+==== System-wide cron jobs ====
+total 24
+drwxr-xr-x 1 root root 4096 Aug 30 04:18 .
+drwxr-xr-x 1 root root 4096 Aug 30 04:18 ..
+-rw-r--r-- 1 root root  102 Mar  2  2023 .placeholder
+-rw-r--r-- 1 root root  201 Jun  6  2025 e2scrub_all
+-rw-r--r-- 1 root root   62 Aug 30 04:18 log-cleanup
+
+==== Recent successful logins ====
+
+wtmp begins Sun Aug 30 04:18:00 2026
+
+==== Recent failed logins ====
+(requires root — /var/log/btmp is not world-readable by design)
+
+==== Section notes ====
+- Some sections show less detail without root (process names on ports,
+  failed-login history). Re-run with sudo for the full picture, but
+  note WHAT you had to elevate for — that's itself useful to document.
+- A SUID/world-writable binary showing up here is not automatically a
+  finding. The point of this report is a baseline: run it again after
+  changes and diff the two to see what actually moved.
+
+Report complete.

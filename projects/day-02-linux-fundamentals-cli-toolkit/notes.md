@@ -1,12 +1,27 @@
 # Day 02 — Notes
 
 ## What I learned
-<!-- Fill in after running this on your real VM: what was actually listening
-     that you didn't expect, what your sudoers list really looked like, etc. -->
+
+Running this against a fresh Debian container instead of a VM with real
+usage history made one thing obvious: a baseline report is only as
+interesting as the box it's run against. A brand-new container has almost
+nothing in "recent logins" and no failed-login history at all, so those
+sections came back nearly empty. That's not a bug, it's accurate, but it did
+mean the more interesting parts of the report ended up being the SUID
+binary list and the sudo group membership, both of which were genuinely
+useful to see laid out in one place rather than checked with three separate
+commands.
 
 ## What broke and how I fixed it
-<!-- Fill in as you hit real issues — e.g. `ss` not installed on a minimal
-     image, `lastb` empty because /var/log/btmp doesn't exist yet, etc. -->
+
+- `systemctl` isn't present in the container at all, since it doesn't run
+  systemd. The script's fallback message handled this correctly on the
+  first try, which was a good sign that `run_or_note()`-style graceful
+  failure is actually doing its job rather than just looking correct on
+  paper.
+- Needed to actually create a non-root sudoer and a cron job by hand before
+  running the script, otherwise the "users with sudo" and "system-wide cron
+  jobs" sections would have had nothing real to show.
 
 ## Interview questions someone could ask me about this
 1. Q: Why avoid `set -e` in this script when it's usually recommended for bash?
@@ -26,6 +41,6 @@
    the box's actual privilege boundaries.
 
 4. Q: How would this become an ongoing detection instead of a one-off report?
-   A: Run it on a schedule, store each report, and diff consecutive runs —
-   new listening ports, new sudoers, or new SUID binaries are the real
-   signal, not any single snapshot.
+   A: Run it on a schedule, store each report, and diff consecutive runs.
+   New listening ports, new sudoers, or new SUID binaries between two runs
+   are the actual signal, not any single snapshot.

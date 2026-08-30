@@ -90,25 +90,49 @@ Two design choices in the script:
 
 ## 7. Results & Evidence
 
+The Kali/Ubuntu VM isn't built yet, so this ran first in a `debian:12-slim`
+container with a real non-root sudoer and a real cron job, to check the
+script actually works before it hits the target VM:
+
 ```
-$ ./host_recon.sh | head -20
-Host recon report — lab-users-01 — 2026-08-30T09:12:04Z
+Host recon report — 5111b5b690fb — 2026-08-30T04:18:43Z
 Run as: kaushik (root: false)
 
 ==== System identity ====
-Kernel:       Linux 6.1.0-kali9-amd64 x86_64 GNU/Linux
-NAME="Kali GNU/Linux"
-VERSION="2024.1"
-Uptime:       up 2 hours, 14 minutes
+Kernel:       Linux 6.18.33.2-microsoft-standard-WSL2 x86_64 GNU/Linux
+NAME="Debian GNU/Linux"
+VERSION="12 (bookworm)"
 
-==== Users with an interactive shell ====
-  root                 uid=0 shell=/bin/bash
-  kaushik              uid=1000 shell=/bin/bash
+==== Members of sudo/wheel (can escalate to root) ====
+sudo:x:27:kaushik
+
+==== SUID/SGID binaries (run with the file owner's privilege, not the caller's) ====
+/usr/bin/chage
+/usr/bin/passwd
+/usr/bin/sudo
 ...
+
+==== Listening TCP/UDP ports ====
+(process names require root — showing ports/addresses only)
 ```
 
-See [`evidence/`](./evidence/) for full non-root and root reports from my lab
-VM, added after running this on the real box.
+Running the same script again as root and diffing the two outputs showed
+exactly what elevation actually unlocks:
+```
+2c2
+< Run as: kaushik (root: false)
+---
+> Run as: root (root: true)
+19d18
+< (process names require root — showing ports/addresses only)
+60c59,60
+< (requires root — /var/log/btmp is not world-readable by design)
+---
+> btmp begins Sun Aug 30 04:18:00 2026
+```
+
+Full reports and what this container run doesn't cover (no real login
+history, no systemd) are in [`evidence/`](./evidence/).
 
 ## 8. Detection / Defense Angle
 
