@@ -1,0 +1,52 @@
+Summary of dns.cap
+  Packets:  38
+  Duration: 278.879s
+
+Protocol breakdown:
+  UDP        38
+
+Top talkers (by bytes, src -> dst):
+  192.168.170.20   -> 192.168.170.8       1599 bytes over 14 packets
+  192.168.170.8    -> 192.168.170.20      1041 bytes over 14 packets
+  192.168.170.56   -> 217.13.4.24          533 bytes over 5 packets
+  217.13.4.24      -> 192.168.170.56       533 bytes over 5 packets
+
+DNS queries seen:
+  type-16 google.com
+  type-16 google.com
+  MX     google.com
+  MX     google.com
+  type-29 google.com
+  type-29 google.com
+  type-12 104.9.192.66.in-addr.arpa
+  type-12 104.9.192.66.in-addr.arpa
+  A      www.netbsd.org
+  A      www.netbsd.org
+  AAAA   www.netbsd.org
+  AAAA   www.netbsd.org
+  AAAA   www.netbsd.org
+  AAAA   www.netbsd.org
+  AAAA   www.google.com
+  AAAA   www.google.com
+  AAAA   www.l.google.com
+  AAAA   www.l.google.com
+  AAAA   www.example.com
+  AAAA   www.example.com
+  AAAA   www.example.notginh
+  AAAA   www.example.notginh
+  type-255 www.isc.org
+  type-255 www.isc.org
+  type-12 1.0.0.127.in-addr.arpa
+  type-12 1.0.0.127.in-addr.arpa
+  type-2 isc.org
+  type-33 _ldap._tcp.Default-First-Site-Name._sites.dc._msdcs.utelsystems.local
+  type-2 isc.org
+  type-33 _ldap._tcp.Default-First-Site-Name._sites.dc._msdcs.utelsystems.local
+  type-33 _ldap._tcp.dc._msdcs.utelsystems.local
+  type-33 _ldap._tcp.dc._msdcs.utelsystems.local
+  type-33 _ldap._tcp.05b5292b-34b8-4fb7-85a3-8beef5fd2069.domains._msdcs.utelsystems.local
+  type-33 _ldap._tcp.05b5292b-34b8-4fb7-85a3-8beef5fd2069.domains._msdcs.utelsystems.local
+  A      GRIMM.utelsystems.local
+  A      GRIMM.utelsystems.local
+  A      GRIMM.utelsystems.local
+  A      GRIMM.utelsystems.local

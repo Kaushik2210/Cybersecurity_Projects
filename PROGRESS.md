@@ -9,7 +9,7 @@ detail lives in each project's `notes.md`.
 - [🟨] Day 01 — Home lab with segmented network (code + docs + Docker demo evidence done; VirtualBox/pfSense VM build still pending)
 - [🟨] Day 02 — Linux fundamentals & CLI security toolkit (code + docs + container evidence done; Kali/Ubuntu VM run still pending)
 - [🟨] Day 03 — Networking & protocols crash-project (code + docs + real trace evidence done; Wireshark capture on the Kali VM still pending)
-- [ ] Day 04 — Packet capture analysis writeup
+- [🟨] Day 04 — Packet capture analysis writeup (code + docs + real script output done; manual Wireshark walkthrough + malware-pcap stretch goal pending)
 - [ ] Day 05 — Git, GitHub & documentation discipline
 - [ ] Day 06 — Linux hardening against CIS Benchmark
 - [ ] Day 07 — Vulnerability assessment of your own lab

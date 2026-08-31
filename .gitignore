@@ -30,11 +30,13 @@ secrets.*
 *.qcow2
 *.iso
 
-# Large samples & captures (keep sanitized samples only, tracked deliberately)
+# Large samples & captures (keep small, public, deliberately-committed ones)
 *.pcap
 *.pcapng
 !evidence/**/*.sanitized.pcap
 samples/
+!projects/day-04-packet-capture-analysis/code/samples/
+!projects/day-04-packet-capture-analysis/code/samples/**
 *.exe
 *.dll
 *.bin

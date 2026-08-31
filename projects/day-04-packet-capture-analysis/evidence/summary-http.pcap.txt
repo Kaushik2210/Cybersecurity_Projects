@@ -1,0 +1,12 @@
+Summary of http.pcap
+  Packets:  1
+  Duration: 0.000s
+
+Protocol breakdown:
+  TCP        1
+
+Top talkers (by bytes, src -> dst):
+  10.0.0.5         -> 207.46.134.94        207 bytes over 1 packets
+
+Plaintext HTTP requests seen:
+  windowsupdate.microsoft.com/v4/iuident.cab?0307011208

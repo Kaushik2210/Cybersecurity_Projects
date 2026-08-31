@@ -1,0 +1,10 @@
+Summary of dhcp.pcap
+  Packets:  4
+  Duration: 0.070s
+
+Protocol breakdown:
+  UDP        4
+
+Top talkers (by bytes, src -> dst):
+  192.168.0.1      -> 192.168.0.10         684 bytes over 2 packets
+  0.0.0.0          -> 255.255.255.255      628 bytes over 2 packets

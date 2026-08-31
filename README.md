@@ -42,7 +42,7 @@ MITRE ATLAS · NIST CSF · NIST AI RMF · NICE Workforce Framework
 | 01 | [Home lab with segmented network](./projects/day-01-home-lab-segmented-network/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 02 | [Linux fundamentals & CLI security toolkit](./projects/day-02-linux-fundamentals-cli-toolkit/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 03 | [Networking & protocols crash-project](./projects/day-03-networking-protocols-crash-project/README.md) | 🟢 | 0 — Foundations | 🟨 |
-| 04 | Packet capture analysis writeup | 🟢 | 0 — Foundations | ⬜ |
+| 04 | [Packet capture analysis writeup](./projects/day-04-packet-capture-analysis/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 05 | Git, GitHub & documentation discipline | 🟢 | 0 — Foundations | ⬜ |
 | 06 | Linux hardening against CIS Benchmark | 🟢 | 0 — Foundations | ⬜ |
 | 07 | Vulnerability assessment of your own lab | 🟢 | 0 — Foundations | ⬜ |
