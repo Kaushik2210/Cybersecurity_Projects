@@ -48,6 +48,17 @@ Every `projects/day-NN-<slug>/` folder contains:
 This creates `projects/day-07-vulnerability-assessment/` pre-populated from
 `templates/PROJECT_README_TEMPLATE.md` and the standard sub-folders.
 
+## Checking the standard is actually followed
+
+`projects/day-05-git-github-documentation-discipline/code/repo_audit.py`
+checks this repo against the per-project standard above and against a
+commit-message style rule, mechanically, instead of trusting a re-read:
+
+```bash
+python projects/day-05-git-github-documentation-discipline/code/repo_audit.py structure --repo-root .
+python projects/day-05-git-github-documentation-discipline/code/repo_audit.py commits --repo-root .
+```
+
 ## Safety & ethics
 
 Every project runs against a personal lab, a public intentionally-vulnerable

@@ -1,0 +1,9 @@
+DAY                                           FILES    DIRS     SECTIONS   RESULT
+-------------------------------------------------------------------------------------
+day-01-home-lab-segmented-network             3/3      2/2      12/12      PASS
+day-02-linux-fundamentals-cli-toolkit         3/3      2/2      12/12      PASS
+day-03-networking-protocols-crash-project     3/3      2/2      12/12      PASS
+day-04-packet-capture-analysis                3/3      2/2      12/12      PASS
+day-05-git-github-documentation-discipline    3/3      2/2      12/12      PASS
+-------------------------------------------------------------------------------------
+5 project(s) checked, 0 total issue(s).

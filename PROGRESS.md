@@ -10,7 +10,7 @@ detail lives in each project's `notes.md`.
 - [🟨] Day 02 — Linux fundamentals & CLI security toolkit (code + docs + container evidence done; Kali/Ubuntu VM run still pending)
 - [🟨] Day 03 — Networking & protocols crash-project (code + docs + real trace evidence done; Wireshark capture on the Kali VM still pending)
 - [🟨] Day 04 — Packet capture analysis writeup (code + docs + real script output done; manual Wireshark walkthrough + malware-pcap stretch goal pending)
-- [ ] Day 05 — Git, GitHub & documentation discipline
+- [✅] Day 05 — Git, GitHub & documentation discipline (repo_audit.py built, tested, badges added — fully done, no VM dependency)
 - [ ] Day 06 — Linux hardening against CIS Benchmark
 - [ ] Day 07 — Vulnerability assessment of your own lab
 - [ ] Day 08 — Password policy & cracking assessment (lab only)

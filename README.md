@@ -1,5 +1,10 @@
 # Cybersecurity Project Series — 100 Days, 8 Phases
 
+![Days in progress](https://img.shields.io/badge/days-5%2F100_in_progress-blue)
+![Level range](https://img.shields.io/badge/level-beginner%20to%20advanced-informational)
+![Scope](https://img.shields.io/badge/scope-authorized%20lab%20%26%20public%20targets%20only-important)
+![License](https://img.shields.io/badge/license-educational%20use-lightgrey)
+
 A day-by-day cybersecurity learning portfolio: Linux and network fundamentals →
 web app security → offensive fundamentals → blue team/SOC → malware & forensics
 → cloud/container/DevSecOps → **AI/LLM security** → GRC & communication →
@@ -8,6 +13,10 @@ capstones. See [`ROADMAP.md`](./ROADMAP.md) for the full plan and
 
 **Author:** Kaushik · MCA student
 **Status:** 🟢 In progress — see the table below
+
+Documentation and commit-message discipline for this repo are checked with
+[`projects/day-05-git-github-documentation-discipline/code/repo_audit.py`](./projects/day-05-git-github-documentation-discipline/code/repo_audit.py)
+rather than just asserted.
 
 ---
 
@@ -43,7 +52,7 @@ MITRE ATLAS · NIST CSF · NIST AI RMF · NICE Workforce Framework
 | 02 | [Linux fundamentals & CLI security toolkit](./projects/day-02-linux-fundamentals-cli-toolkit/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 03 | [Networking & protocols crash-project](./projects/day-03-networking-protocols-crash-project/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 04 | [Packet capture analysis writeup](./projects/day-04-packet-capture-analysis/README.md) | 🟢 | 0 — Foundations | 🟨 |
-| 05 | Git, GitHub & documentation discipline | 🟢 | 0 — Foundations | ⬜ |
+| 05 | [Git, GitHub & documentation discipline](./projects/day-05-git-github-documentation-discipline/README.md) | 🟢 | 0 — Foundations | ✅ |
 | 06 | Linux hardening against CIS Benchmark | 🟢 | 0 — Foundations | ⬜ |
 | 07 | Vulnerability assessment of your own lab | 🟢 | 0 — Foundations | ⬜ |
 | 08 | Password policy & cracking assessment (lab only) | 🟡 | 0 — Foundations | ⬜ |
