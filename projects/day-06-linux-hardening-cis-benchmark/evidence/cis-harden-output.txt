@@ -1,0 +1,13 @@
+Applying CIS hardening fixes — backups saved with .bak.20260906162100 suffix
+---------------------------------------------------------------------------
+chmod 644 /etc/passwd
+chmod 640 /etc/shadow, owner set to root:shadow (or root:root if shadow group absent)
+sshd_config: PermitRootLogin no
+sshd_config: PermitEmptyPasswords no
+login.defs: PASS_MAX_DAYS 365
+login.defs: UMASK 027
+fs.suid_dumpable set to 0 (runtime only — add to /etc/sysctl.d/ to persist)
+net.ipv4.ip_forward set to 0 (runtime only — add to /etc/sysctl.d/ to persist)
+auditd installed
+---------------------------------------------------------------------------
+Done. Run cis_check.sh again to confirm the fixes took.

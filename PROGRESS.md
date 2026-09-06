@@ -11,7 +11,7 @@ detail lives in each project's `notes.md`.
 - [🟨] Day 03 — Networking & protocols crash-project (code + docs + real trace evidence done; Wireshark capture on the Kali VM still pending)
 - [🟨] Day 04 — Packet capture analysis writeup (code + docs + real script output done; manual Wireshark walkthrough + malware-pcap stretch goal pending)
 - [✅] Day 05 — Git, GitHub & documentation discipline (repo_audit.py built, tested, badges added — fully done, no VM dependency)
-- [ ] Day 06 — Linux hardening against CIS Benchmark
+- [🟨] Day 06 — Linux hardening against CIS Benchmark (checker + hardener + real Lynis before/after done on a container; real VM lab run still pending)
 - [ ] Day 07 — Vulnerability assessment of your own lab
 - [ ] Day 08 — Password policy & cracking assessment (lab only)
 

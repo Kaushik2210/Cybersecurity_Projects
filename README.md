@@ -1,6 +1,6 @@
 # Cybersecurity Project Series — 100 Days, 8 Phases
 
-![Days in progress](https://img.shields.io/badge/days-5%2F100_in_progress-blue)
+![Days in progress](https://img.shields.io/badge/days-6%2F100_in_progress-blue)
 ![Level range](https://img.shields.io/badge/level-beginner%20to%20advanced-informational)
 ![Scope](https://img.shields.io/badge/scope-authorized%20lab%20%26%20public%20targets%20only-important)
 ![License](https://img.shields.io/badge/license-educational%20use-lightgrey)
@@ -53,7 +53,7 @@ MITRE ATLAS · NIST CSF · NIST AI RMF · NICE Workforce Framework
 | 03 | [Networking & protocols crash-project](./projects/day-03-networking-protocols-crash-project/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 04 | [Packet capture analysis writeup](./projects/day-04-packet-capture-analysis/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 05 | [Git, GitHub & documentation discipline](./projects/day-05-git-github-documentation-discipline/README.md) | 🟢 | 0 — Foundations | ✅ |
-| 06 | Linux hardening against CIS Benchmark | 🟢 | 0 — Foundations | ⬜ |
+| 06 | [Linux hardening against CIS Benchmark](./projects/day-06-linux-hardening-cis-benchmark/README.md) | 🟢 | 0 — Foundations | 🟨 |
 | 07 | Vulnerability assessment of your own lab | 🟢 | 0 — Foundations | ⬜ |
 | 08 | Password policy & cracking assessment (lab only) | 🟡 | 0 — Foundations | ⬜ |
 | 09 | Set up a vulnerable-app lab | 🟢 | 1 — Web AppSec | ⬜ |

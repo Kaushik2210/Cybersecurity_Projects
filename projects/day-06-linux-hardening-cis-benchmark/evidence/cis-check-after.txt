@@ -1,0 +1,14 @@
+CIS Debian/Ubuntu Benchmark — subset check — 2026-09-06T16:21:10Z
+-----------------------------------------------------------------------------
+[1.1 ] /etc/passwd permissions (<=644)               PASS  mode 644
+[1.2 ] /etc/shadow perms/owner (<=640, root:shadow)  PASS  640 root:shadow
+[1.3 ] No accounts with empty password               PASS  none found
+[5.1 ] SSH root login disabled                       PASS  PermitRootLogin no
+[5.2 ] SSH empty passwords disabled                  PASS  PermitEmptyPasswords no
+[1.4 ] Password max age <= 365 days                  PASS  PASS_MAX_DAYS 365
+[1.5 ] Default umask 027 or stricter                 PASS  UMASK 027
+[1.6 ] Core dumps restricted (fs.suid_dumpable=0)    PASS  value 0
+[3.1 ] IP forwarding disabled                        PASS  value 0
+[4.1 ] auditd installed                              PASS  found
+-----------------------------------------------------------------------------
+10 passed, 0 failed, 0 not applicable.
